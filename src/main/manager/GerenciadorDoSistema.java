@@ -5,6 +5,7 @@ import java.util.Map;
 
 import main.dispositivos.Dispositivo;
 
+// Aplica o padrão Singleton para garantir um único ponto de controle do sistema. Segue o SRP e DIP
 public class GerenciadorDoSistema {
     private static GerenciadorDoSistema instancia;
     private Map<String, Dispositivo> dispositivos = new HashMap<>();

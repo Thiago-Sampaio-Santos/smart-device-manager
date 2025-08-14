@@ -1,5 +1,6 @@
 package main.dispositivos;
 
+// Classe concreta que representa os sensores
 public class Sensor implements Dispositivo {
     private String id;
     private String type;
@@ -15,7 +16,7 @@ public class Sensor implements Dispositivo {
     }
 
     @Override
-    public String getType() {
+    public String getTipo() {
         return type;
     }
 

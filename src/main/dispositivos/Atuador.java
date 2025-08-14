@@ -1,5 +1,6 @@
 package main.dispositivos;
 
+// Classe concreta para atuadores
 public class Atuador implements Dispositivo {
     private String id;
     private String type;
@@ -16,7 +17,7 @@ public class Atuador implements Dispositivo {
     }
 
     @Override
-    public String getType() {
+    public String getTipo() {
         return type;
     }
 
