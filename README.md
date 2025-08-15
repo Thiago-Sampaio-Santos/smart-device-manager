@@ -40,36 +40,27 @@ Este projeto simula um sistema modular para gerenciamento de dispositivos inteli
 
 ---
 
-## Estrutura de Pastas
+## Estrutura do Projeto
+Pastas `src/main`:
+- `command/` — Implementação do padrão Command: comandos encapsulados (ex.: ligar ventilador).
+- `dispositivos/` — Interfaces e classes concretas de dispositivos: abstrações de `Dispositivo`, `Sensor`, `Atuador`.
+- `factory/` — Implementação do Factory Method: criação de dispositivos (`FabricaDeDispositivos`).
+- `manager/` — Singleton de gerenciamento do sistema: gerenciador principal (`GerenciadorDoSistema`).
+- `observer/` — Implementação do padrão Observer: eventos e assinatura/notificação.
+- `strategy/` — Estratégias de resposta a eventos.
+- `theme/` — Padrões Composite e Decorator para temas.
 
----
+## Como Executar (sugestão)
+1. Compilar o projeto (ex.: `javac` no diretório `src` ou configurar um `pom.xml`/Maven, se desejado).
+2. Executar `App.java` como aplicação Java simples para simular o fluxo de eventos.
+3. Ajustar e ampliar o cenário de simulação criando novos dispositivos, comandos e estratégias.
 
-src/
-├── main/
-│   ├── command/       # Implementação do padrão Command
-│   ├── dispositivos/  # Interfaces e classes concretas de dispositivos
-│   ├── factory/       # Implementação do Factory Method
-│   ├── manager/       # Singleton de gerenciamento do sistema
-│   ├── observer/      # Implementação do padrão Observer
-│   ├── strategy/      # Estratégias de resposta a eventos
-│   ├── theme/         # Padrões Composite e Decorator para temas
-│   └── App.java       # Classe principal de execução
-
-
----
-
-## Como Executar
 
 ### Pré-requisitos
 - **Java 17** instalado 
 - Um IDE (Eclipse, IntelliJ, VS Code, etc.)
 
-### Clonar o repositório
-```bash
-git clone https://github.com/Thiago-Sampaio-Santos/smart-device-manager.git
-cd sistema-iot
 
----
 
 ## Diagrama UML de Classes
 
