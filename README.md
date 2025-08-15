@@ -69,3 +69,17 @@ src/
 git clone https://github.com/Thiago-Sampaio-Santos/smart-device-manager.git
 cd sistema-iot
 
+---
+
+## Diagrama UML de Classes
+
+![Diagrama UML](documentacao/uml/Diagrama.png)
+
+## Este diagrama mostra como os padrões de projeto foram aplicados:
+
+-  **Factory Method**: Criação de sensores e atuadores.
+-  **Strategy**: Resposta flexível a eventos.
+-  **Observer**: Reação automática a eventos de sensores.
+-  **Composite + Decorator**: Composição de temas visuais.
+-  **Command**: Encapsulamento de ações em comandos.
+-  **Singleton**: Gerenciador central do sistema.

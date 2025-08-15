@@ -14,7 +14,7 @@ import main.theme.DecoradorTemaEscuro;
 import main.theme.TemaBasico;
 
 public class App {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         System.out.println("\n=== INICIALIZAÇÃO DO SISTEMA ===");
 
@@ -22,41 +22,47 @@ public class App {
         Dispositivo sensor = FabricaDeDispositivos.criarDispositivo("1", "Temperatura", "sensor");
         Dispositivo atuador = FabricaDeDispositivos.criarDispositivo("2", "Ventilador", "atuador");
 
-        //Gerenciador do sistema
+        // Gerenciador do sistema (Singleton)
         GerenciadorDoSistema gerenciador = GerenciadorDoSistema.getInstancia();
         gerenciador.registrarDispositivo(sensor);
         gerenciador.registrarDispositivo(atuador);
 
-        // Execução direta de comandos
-        gerenciador.executarComando("1", "Detectar temperatura");
-        gerenciador.executarComando("2", "Ligar ventilador");
-
-        // Padrão Command
+        // Command: ação para ligar ventilador
         Comando ligarVentilador = new ComandoLigarVentilador(atuador);
-        ligarVentilador.executar();
 
-        //Padrão Observer
-        GerenciadorDeEventos gerenciadorDeEventos = new GerenciadorDeEventos();
+        // Observer: um único gerenciador de eventos
+        GerenciadorDeEventos eventos = new GerenciadorDeEventos();
 
-        // Ouvinte anônimo que reage ao evento
-        gerenciadorDeEventos.inscrever(evento -> {
-            System.out.println("O ouvinte recebeu o evento:" + evento.getTipo());
+        // Ouvinte que reage automaticamente se a temperatura passar de 30°C
+        eventos.inscrever(e -> {
+            System.out.println("Evento recebido: " + e.getTipo() + " = " + e.getValor());
+            if ("Temperatura".equalsIgnoreCase(e.getTipo())) {
+                String digits = e.getValor().replaceAll("[^0-9-]", "");
+                try {
+                    int temp = Integer.parseInt(digits);
+                    if (temp > 30) {
+                        System.out.println("Temperatura acima de 30°C! Acionando ventilador...");
+                        ligarVentilador.executar();
+                    }
+                } catch (NumberFormatException ex) {
+                    System.out.println("Valor de temperatura inválido: " + e.getValor());
+                }
+            }
         });
 
-        // Publicação de evento
-        GerenciadorDeEventos gerenciadorDeEventos2 = new GerenciadorDeEventos();
+        // Simulação de leitura de temperatura
         Evento eventoTemperatura = new Evento("Temperatura", "32°C");
-        gerenciadorDeEventos2.publicar(eventoTemperatura);
+        eventos.publicar(eventoTemperatura);
 
-        // Padrão Strategy
+        // Strategy: resposta ao evento (exemplo)
         EstrategiaDeRespostaAoEvento estrategia = new EstrategiaDeRespostaImediata();
         estrategia.responder(eventoTemperatura);
 
-
-        // Padrão Decorator e Composite
+        // Decorator + Composite: tema
         ComponenteDeTema temaBasico = new TemaBasico();
         ComponenteDeTema temaEscuro = new DecoradorTemaEscuro(temaBasico);
         temaEscuro.renderizar();
-        System.out.println("\n=== FIM DA SIMULAÇÃO ===\n\n");
+
+        System.out.println("\n=== FIM DA SIMULAÇÃO ===\n");
     }
 }
